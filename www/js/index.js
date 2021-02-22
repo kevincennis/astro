@@ -12,8 +12,13 @@ async function upload_pdf() {
     const res  = await fetch( '/api/translate', { method: 'POST', body } );
     const json = await res.json();
 
+    if ( json.text.trim() === '' ) {
+      output.textContent = 'No astro data found.';
+      return;
+    }
+
     output.textContent = json.text;
   } catch ( ex ) {
-    alert( ex );
+    output.textContent = ex;
   }
 }
