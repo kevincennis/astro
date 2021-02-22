@@ -8,6 +8,8 @@ async function upload_pdf() {
 
   body.append( 'file', input.files[ 0 ] );
 
+  output.textContent = '🤔 working on it...';
+
   try {
     const res  = await fetch( '/api/translate', { method: 'POST', body } );
     const json = await res.json();

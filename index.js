@@ -3,7 +3,7 @@ const promisify = require('util').promisify;
 const pipeline  = require('./lib/pipeline');
 const compose   = require('./lib/util/compose');
 
-const INPUT  = 'transit2.pdf' ;
+const INPUT  = 'transit.pdf' ;
 const OUTPUT = 'output.txt';
 
 const translate = compose(
