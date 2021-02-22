@@ -4,23 +4,28 @@ const multiparty = require('multiparty');
 module.exports = async( req, res ) => {
   const form = new multiparty.Form;
 
-  form.parse( req, async( err, fields, files ) => {
-    function bail( ex ) {
+  form.on( 'part', part => {
+    if ( !part.filename ) {
+      part.resume();
+      return;
+    }
+
+    const chunks = [];
+
+    part.on( 'data', chunk => chunks.push( chunk ) );
+
+    part.on( 'error', ex => {
       res.writeHead( 500, { 'content-type': 'text/plain' } );
       res.end( String( ex ) );
       console.error( ex );
-    }
+    });
 
-    if ( err ) {
-      return bail( err );
-    }
-
-    try {
-      const file = files.file;
+    part.on( 'finish', async() => {
+      const file = Buffer.concat( chunks );
       const text = await pipeline( file );
       res.json({ text });
-    } catch ( ex ) {
-      bail( ex );
-    }
+    });
   });
+
+  form.parse( req );
 };
