@@ -7,7 +7,8 @@ module.exports = async( req, res ) => {
   form.parse( req, async( err, fields, files ) => {
     function bail( ex ) {
       res.writeHead( 500, { 'content-type': 'text/plain' } );
-      res.end( String( err ) );
+      res.end( String( ex ) );
+      console.error( ex );
     }
 
     if ( err ) {
