@@ -1,0 +1,14 @@
+#input {
+  max-width: 300px;
+  display: block;
+  margin: 30px auto;
+}
+
+#output {
+  background: #f6f6f6;
+  border: 1px solid #f0f0f0;
+  white-space: pre;
+  font-family: monospace;
+  max-width: 500px;
+  margin: 0 auto;
+}
